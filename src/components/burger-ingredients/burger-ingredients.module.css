@@ -6,10 +6,15 @@
   font-family: 'Jet Brains Mono', serif;
 }
 
-.menu {
+.menuTabs {
   display: flex;
   margin: 0;
   padding: 0;
   text-align: center;
   list-style-type: none;
+}
+
+.menuItems {
+  max-height: 70vh;
+  overflow: hidden scroll;
 }

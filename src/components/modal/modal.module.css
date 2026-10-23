@@ -1,0 +1,28 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1000;
+  width: 100%;
+  max-width: 720px;
+  padding: 60px 40px;
+  background-color: var(--background-element);
+  border-radius: 40px;
+  box-shadow: 0 0 10px 1px rgb(255 255 255 / 30%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.modalHeader {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modalCloseBtn {
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}

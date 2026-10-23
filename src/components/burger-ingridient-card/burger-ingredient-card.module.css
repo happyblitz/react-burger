@@ -1,0 +1,54 @@
+.card {
+  position: relative;
+  padding: 0 16px;
+  text-align: center;
+
+  .cardLink {
+    display: block;
+    color: inherit;
+    caret-color: transparent;
+    transition:
+      transform 0.2s ease,
+      color 0.2s ease;
+
+    &:hover {
+      color: #6a6aff;
+
+      img {
+        scale: 1.2;
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 6px;
+    }
+  }
+}
+
+.title {
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+.image {
+  width: 100%;
+  overflow: hidden;
+}
+
+.priceBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.count {
+  position: absolute;
+  top: 0;
+  right: 16px;
+}

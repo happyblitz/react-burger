@@ -1,12 +1,39 @@
-import { CheckMarkIcon } from '@krgaa/react-developer-burger-ui-components';
+import { getRtkError } from '@/utils/getRtkError';
+import { CheckMarkIcon, Preloader } from '@krgaa/react-developer-burger-ui-components';
+
+import type { TCreateOrderMutation } from '@/utils/types';
 
 import styles from './order-details.module.css';
 
-export const OrderDetails = (): React.JSX.Element => {
+type TOrderDetailsProps = {
+  isLoading: boolean;
+  data: TCreateOrderMutation | undefined;
+  isError: boolean;
+  error: unknown;
+};
+
+export const OrderDetails = ({
+  isLoading,
+  data,
+  isError,
+  error,
+}: TOrderDetailsProps): React.JSX.Element => {
+  if (isLoading) {
+    return (
+      <article className={styles.orderDetails}>
+        <Preloader />
+      </article>
+    );
+  }
+
+  if (isError) {
+    return <p>Произошла непредвиденная ошибка: {getRtkError(error)}</p>;
+  }
+
   return (
     <article className={styles.orderDetails}>
       <h3 className={`${styles.orderNumber} mb-8 text text_type_digits-large`}>
-        034536
+        {data?.order.number}
       </h3>
       <p className={`mb-15 text text_type_main-medium`}>идентификатор заказа</p>
       <div className={`${styles.checkIconWrapper} mb-15`}>

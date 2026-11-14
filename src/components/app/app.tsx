@@ -1,32 +1,12 @@
-//import { ingredients } from '@utils/ingredients';
-import { getIngredients } from '@/api/api';
-import { Preloader } from '@krgaa/react-developer-burger-ui-components';
-import { useState, useEffect } from 'react';
+import { useGetIngredientsQuery } from '@/services/api/ingredientsApi';
 
+import { AppBody } from '@components/app-body/app-body';
 import { AppHeader } from '@components/app-header/app-header';
-import { BurgerConstructor } from '@components/burger-constructor/burger-constructor';
-import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients';
-
-import type { TIngredient } from '@/utils/types';
 
 import styles from './app.module.css';
 
 export const App = (): React.JSX.Element => {
-  const [ingredients, setIngredients] = useState<TIngredient[]>([]);
-
-  useEffect(() => {
-    getIngredients()
-      .then((response) => {
-        if (response === false) {
-          return;
-        }
-
-        setIngredients(response);
-      })
-      .catch((error) => {
-        console.error('Произошла ошибка:', error);
-      });
-  }, []);
+  const { isLoading, isError, error, data: ingredients } = useGetIngredientsQuery();
 
   return (
     <div className={styles.app}>
@@ -35,13 +15,12 @@ export const App = (): React.JSX.Element => {
         Соберите бургер
       </h1>
       <main className={`${styles.main} pl-5 pr-5`}>
-        {ingredients.length === 0 && <Preloader />}
-        {ingredients.length > 0 && (
-          <>
-            <BurgerIngredients ingredients={ingredients} />
-            <BurgerConstructor ingredients={ingredients} />
-          </>
-        )}
+        <AppBody
+          isLoading={isLoading}
+          isError={isError}
+          error={error}
+          ingredients={ingredients}
+        />
       </main>
     </div>
   );

@@ -1,3 +1,5 @@
+import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppSelector } from '@/hooks/useAppSelector';
 import {
   getBunSelector,
   getIngredientsSelector,
@@ -9,7 +11,6 @@ import {
 } from '@/services/slices/modalSlice';
 import { Counter, CurrencyIcon } from '@krgaa/react-developer-burger-ui-components';
 import { useDrag } from 'react-dnd';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { InrgedientDetails } from '../ingredient-details/ingredient-details';
 import { Modal } from '../modal/modal';
@@ -25,10 +26,10 @@ type TBurgerIngredientCardProps = {
 export const BurgerIngredientCard = ({
   ingredient,
 }: TBurgerIngredientCardProps): React.JSX.Element => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const bun = useSelector(getBunSelector);
-  const ingredients = useSelector(getIngredientsSelector);
+  const bun = useAppSelector(getBunSelector);
+  const ingredients = useAppSelector(getIngredientsSelector);
 
   let count = 0;
 
@@ -40,7 +41,7 @@ export const BurgerIngredientCard = ({
     count = ingredients.reduce((acc, i) => (i.id === ingredient._id ? ++acc : acc), 0);
   }
 
-  const isModalOpen = useSelector(modalIngredientInfoSelector) === ingredient._id;
+  const isModalOpen = useAppSelector(modalIngredientInfoSelector) === ingredient._id;
 
   const [, dragRef] = useDrag<TAddIngredientPayload>({
     type: 'ingredient',

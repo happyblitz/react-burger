@@ -22,11 +22,3 @@ export type ISelectedIngredient = {
   uuid: string;
   ingredient: TIngredient | undefined;
 };
-
-export type TCreateOrderMutation = {
-  name: string;
-  order: {
-    number: number;
-  };
-  success: boolean;
-};

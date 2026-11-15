@@ -1,3 +1,4 @@
+import { useGetIngredientsQuery } from '@/services/api/ingredientsApi';
 import { getRtkError } from '@/utils/getRtkError';
 import { Preloader } from '@krgaa/react-developer-burger-ui-components';
 import { DndProvider } from 'react-dnd';
@@ -6,23 +7,9 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { BurgerConstructor } from '@components/burger-constructor/burger-constructor';
 import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients';
 
-import type { TIngredient } from '@/utils/types';
-import type { SerializedError } from '@reduxjs/toolkit';
-import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+export const AppBody = (): React.JSX.Element => {
+  const { isLoading, isError, error, data: ingredients } = useGetIngredientsQuery();
 
-type AppBodyProps = {
-  isLoading: boolean;
-  isError: boolean;
-  error: FetchBaseQueryError | SerializedError | undefined;
-  ingredients: TIngredient[] | undefined;
-};
-
-export const AppBody = ({
-  isLoading,
-  isError,
-  error,
-  ingredients,
-}: AppBodyProps): React.JSX.Element => {
   if (isLoading) {
     return <Preloader />;
   }
@@ -35,7 +22,7 @@ export const AppBody = ({
     <>
       {ingredients && (
         <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients ingredients={ingredients} />
+          <BurgerIngredients />
           <BurgerConstructor />
         </DndProvider>
       )}

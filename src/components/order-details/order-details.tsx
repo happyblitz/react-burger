@@ -1,23 +1,14 @@
+import { useCreateOrderMutation } from '@/services/api/createOrderApi';
 import { getRtkError } from '@/utils/getRtkError';
 import { CheckMarkIcon, Preloader } from '@krgaa/react-developer-burger-ui-components';
 
-import type { TCreateOrderMutation } from '@/utils/types';
-
 import styles from './order-details.module.css';
 
-type TOrderDetailsProps = {
-  isLoading: boolean;
-  data: TCreateOrderMutation | undefined;
-  isError: boolean;
-  error: unknown;
-};
+export const OrderDetails = (): React.JSX.Element => {
+  const [, { isLoading, data, isError, error }] = useCreateOrderMutation({
+    fixedCacheKey: 'new-order',
+  });
 
-export const OrderDetails = ({
-  isLoading,
-  data,
-  isError,
-  error,
-}: TOrderDetailsProps): React.JSX.Element => {
   if (isLoading) {
     return (
       <article className={styles.orderDetails}>

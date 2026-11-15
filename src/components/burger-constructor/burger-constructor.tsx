@@ -1,3 +1,4 @@
+import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useGetSelectedBun } from '@/hooks/useGetSelectedBun';
 import { useGetSelectedIngredients } from '@/hooks/useGetSelectedIngredients';
 import { useCreateOrderMutation } from '@/services/api/createOrderApi';
@@ -10,7 +11,6 @@ import {
   Button,
 } from '@krgaa/react-developer-burger-ui-components';
 import { useDrop } from 'react-dnd';
-import { useDispatch } from 'react-redux';
 
 import { Modal } from '../modal/modal';
 import { OrderDetails } from '../order-details/order-details';
@@ -22,11 +22,9 @@ import type { TAddIngredientPayload } from '@utils/types';
 import styles from './burger-constructor.module.css';
 
 export const BurgerConstructor = (): React.JSX.Element => {
-  const dispatch = useDispatch();
-  const [
-    createOrder,
-    { isLoading, data, isError, isSuccess, error, reset: resetCreateOrder },
-  ] = useCreateOrderMutation();
+  const dispatch = useAppDispatch();
+  const [createOrder, { isLoading, data, isError, isSuccess, reset: resetCreateOrder }] =
+    useCreateOrderMutation({ fixedCacheKey: 'new-order' });
 
   const isModalOpen = isLoading || isSuccess || isError;
 
@@ -88,7 +86,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
               <ConstructorElement
                 isLocked
                 price={bun.price}
-                text={bun.name}
+                text={bun.name + ' (верх)'}
                 thumbnail={bun.image}
                 type="top"
               />
@@ -136,7 +134,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
               <ConstructorElement
                 isLocked
                 price={bun.price}
-                text={bun.name}
+                text={bun.name + ' (низ)'}
                 thumbnail={bun.image}
                 type="bottom"
               />
@@ -169,12 +167,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
       </div>
       {isModalOpen && (
         <Modal title="" onClose={handleCloseModal}>
-          <OrderDetails
-            isLoading={isLoading}
-            data={data}
-            isError={isError}
-            error={error}
-          />
+          <OrderDetails />
         </Modal>
       )}
     </section>

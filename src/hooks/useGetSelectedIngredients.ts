@@ -1,12 +1,13 @@
 import { useGetIngredientsQuery } from '@/services/api/ingredientsApi';
 import { getIngredientsSelector } from '@/services/slices/burgerCounstructorSlice';
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+
+import { useAppSelector } from './useAppSelector';
 
 import type { ISelectedIngredient } from '@/utils/types';
 
 export const useGetSelectedIngredients = (): ISelectedIngredient[] => {
-  const selectedIngredients = useSelector(getIngredientsSelector);
+  const selectedIngredients = useAppSelector(getIngredientsSelector);
   const { data: ingredients = [] } = useGetIngredientsQuery();
 
   return useMemo(() => {

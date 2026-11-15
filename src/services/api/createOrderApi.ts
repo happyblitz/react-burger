@@ -1,7 +1,13 @@
 import { BASE_API_URL } from '@/utils/globals';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import type { TCreateOrderMutation } from '@/utils/types';
+type TCreateOrderMutation = {
+  name: string;
+  order: {
+    number: number;
+  };
+  success: boolean;
+};
 
 export const orderApi = createApi({
   reducerPath: 'order',

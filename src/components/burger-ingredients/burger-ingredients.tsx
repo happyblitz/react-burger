@@ -1,22 +1,17 @@
+import { useGetIngredientsQuery } from '@/services/api/ingredientsApi';
 import { Tab } from '@krgaa/react-developer-burger-ui-components';
 import { useState, useRef } from 'react';
 
 import { BurgerIngredientSection } from '../burger-ingredient-section/burger-ingredient-section';
 
-import type { TIngredient } from '@utils/types';
-
 import styles from './burger-ingredients.module.css';
 
-type TBurgerIngredientsProps = {
-  ingredients: TIngredient[];
-};
-
-export const BurgerIngredients = ({
-  ingredients,
-}: TBurgerIngredientsProps): React.JSX.Element => {
+export const BurgerIngredients = (): React.JSX.Element => {
   const [activeTab, setActiveTab] = useState('bun');
   const ingredientsHeadings = useRef<Record<string, HTMLElement | null>>({});
   const ingridientsContainerRef = useRef<HTMLElement | null>(null);
+
+  const { data: ingredients } = useGetIngredientsQuery();
 
   const scrollToAnchor = (activeTabId: string): void => {
     const ingredientsHeadingElement = ingredientsHeadings.current[activeTabId];
@@ -98,14 +93,15 @@ export const BurgerIngredients = ({
         </ul>
       </nav>
       <div className={`${styles.menuItems} custom-scroll pt-5`} onScroll={handleScroll}>
-        {tabs.map((t) => (
-          <BurgerIngredientSection
-            key={t.id}
-            title={t.title}
-            ingredients={ingredients.filter((i) => i.type === t.id)}
-            innerRef={(el) => (ingredientsHeadings.current[t.id] = el)}
-          />
-        ))}
+        {ingredients &&
+          tabs.map((t) => (
+            <BurgerIngredientSection
+              key={t.id}
+              title={t.title}
+              ingredients={ingredients.filter((i) => i.type === t.id)}
+              innerRef={(el) => (ingredientsHeadings.current[t.id] = el)}
+            />
+          ))}
       </div>
     </section>
   );

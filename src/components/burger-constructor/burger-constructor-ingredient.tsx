@@ -1,3 +1,4 @@
+import { useAppDispatch } from '@/hooks/useAppDispatch';
 import {
   removeIngredient,
   sortIngredients,
@@ -8,7 +9,6 @@ import {
 } from '@krgaa/react-developer-burger-ui-components';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import { useDispatch } from 'react-redux';
 
 import type { ISelectedIngredient } from '@/utils/types';
 
@@ -24,7 +24,7 @@ export const BurgerConstructorIngredient = ({
   selectedIngredient,
   index,
 }: TBurgerConstructorIngredientProps): React.JSX.Element => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const selectedIngredientRef = useRef<HTMLLIElement>(null);
 
   const [{ isDrag }, dragRef] = useDrag({

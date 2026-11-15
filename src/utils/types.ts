@@ -12,3 +12,13 @@ export type TIngredient = {
   image_mobile: string;
   __v: number;
 };
+
+export type TAddIngredientPayload = {
+  id: string;
+  type: string;
+};
+
+export type ISelectedIngredient = {
+  uuid: string;
+  ingredient: TIngredient | undefined;
+};

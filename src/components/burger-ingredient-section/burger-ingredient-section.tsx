@@ -23,7 +23,7 @@ export const BurgerIngredientSection = ({
       <ul className={styles.itemsList}>
         {ingredients.map((i) => (
           <li key={i._id}>
-            <BurgerIngredientCard ingredient={i} count={0} />
+            <BurgerIngredientCard ingredient={i} />
           </li>
         ))}
       </ul>

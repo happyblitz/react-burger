@@ -10,7 +10,7 @@ type apiResponse = {
 };
 
 export const ingredientsApi = createApi({
-  reducerPath: 'ingredients',
+  reducerPath: 'ingredientsApi',
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_API_URL,
   }),

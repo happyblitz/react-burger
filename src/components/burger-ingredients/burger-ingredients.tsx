@@ -13,6 +13,8 @@ export const BurgerIngredients = (): React.JSX.Element => {
 
   const { data: ingredients } = useGetIngredientsQuery();
 
+  console.log(ingredients);
+
   const scrollToAnchor = (activeTabId: string): void => {
     const ingredientsHeadingElement = ingredientsHeadings.current[activeTabId];
 

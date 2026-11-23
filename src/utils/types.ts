@@ -22,3 +22,10 @@ export type ISelectedIngredient = {
   uuid: string;
   ingredient: TIngredient | undefined;
 };
+
+export type TUser = {
+  email: string;
+  name: string;
+};
+
+export type TUnknownRecord = Record<string, unknown>;

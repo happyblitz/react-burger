@@ -88,3 +88,9 @@ ul {
 .ml-auto {
   margin-left: auto;
 }
+
+/* активная ссылка */
+
+.link_active {
+  color: var(--text-primary-color);
+}

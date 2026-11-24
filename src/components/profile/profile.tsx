@@ -1,6 +1,6 @@
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { authApi, useLogoutMutation } from '@/services/api/authApi';
-import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { ProtectedRoute } from '../protected-route/protected-route';
 
@@ -33,8 +33,20 @@ export const Profile = (): React.JSX.Element => {
       <section className={`${styles.section} flex-container`}>
         <div className={styles.container}>
           <aside className="flex-container text text_type_main-medium">
-            <Link to="/profile">Профиль</Link>
-            <Link to="/profile/orders">История заказов</Link>
+            <NavLink
+              to="/profile"
+              end
+              className={({ isActive }) => (isActive ? 'link_active' : '')}
+            >
+              Профиль
+            </NavLink>
+            <NavLink
+              to="/profile/orders"
+              end
+              className={({ isActive }) => (isActive ? 'link_active' : '')}
+            >
+              История заказов
+            </NavLink>
             <button className="link" onClick={handleClick}>
               Выход
             </button>

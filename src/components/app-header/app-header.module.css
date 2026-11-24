@@ -27,8 +27,8 @@
   }
 }
 
-.link_active {
-  color: var(--text-primary-color);
+a.logo_link:hover {
+  opacity: 1;
 }
 
 .position_last {

@@ -10,7 +10,7 @@ type TCreateOrderMutation = {
 };
 
 export const orderApi = createApi({
-  reducerPath: 'order',
+  reducerPath: 'orderApi',
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_API_URL + 'orders',
   }),

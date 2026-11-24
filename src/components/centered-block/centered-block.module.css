@@ -1,0 +1,15 @@
+.main {
+  position: relative;
+  max-width: 1240px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.container-centered {
+  position: relative;
+  top: 40%;
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+  transform: translateY(-50%);
+}

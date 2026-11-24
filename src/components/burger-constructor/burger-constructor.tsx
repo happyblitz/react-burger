@@ -1,9 +1,11 @@
 import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppSelector } from '@/hooks/useAppSelector';
 import { useGetSelectedBun } from '@/hooks/useGetSelectedBun';
 import { useGetSelectedIngredients } from '@/hooks/useGetSelectedIngredients';
 import { useCreateOrderMutation } from '@/services/api/createOrderApi';
 import { addIngredient, resetCart } from '@/services/slices/burgerCounstructorSlice';
 import { currentOrder } from '@/services/slices/ordersSlice';
+import { userSelector } from '@/services/slices/userSlice';
 import {
   ConstructorElement,
   DragIcon,
@@ -11,6 +13,7 @@ import {
   Button,
 } from '@krgaa/react-developer-burger-ui-components';
 import { useDrop } from 'react-dnd';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Modal } from '../modal/modal';
 import { OrderDetails } from '../order-details/order-details';
@@ -23,6 +26,9 @@ import styles from './burger-constructor.module.css';
 
 export const BurgerConstructor = (): React.JSX.Element => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const user = useAppSelector(userSelector);
   const [createOrder, { isLoading, data, isError, isSuccess, reset: resetCreateOrder }] =
     useCreateOrderMutation({ fixedCacheKey: 'new-order' });
 
@@ -47,6 +53,11 @@ export const BurgerConstructor = (): React.JSX.Element => {
 
   const handleCreateOrder = (): void => {
     if (!bun) {
+      return;
+    }
+
+    if (!user) {
+      void navigate('/login', { state: { from: location } });
       return;
     }
 
